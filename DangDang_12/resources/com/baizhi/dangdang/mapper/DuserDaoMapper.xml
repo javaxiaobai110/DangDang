@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dangdang.user.dao.DuserDao">
+	<select id="queryOneDuser" parameterType="java.lang.String" resultType="Duser">
+		select id,email,nick_name as nickName,password,status, salt from d_user where email=#{email}
+	</select>
+	
+	<select id="queryOneDuserByEmailAndPassword" parameterType="java.lang.String" resultType="Duser">
+		select id,email,nick_name as nickName,password,status from d_user where email = #{email} and password = #{password}
+	</select>
+	
+	<insert id="insertDuser" parameterType="Duser">
+		insert into d_user (id,email,nick_name,password,salt) values(#{id},#{email},#{nickName},#{password},#{salt})
+	</insert>
+	
+	<update id="activeDuser" >
+		update d_user set status=#{activeCode} where id=#{id}
+	</update>
+	
+	<select id="queryOndeDuserById" parameterType="java.lang.String" resultType="Duser">
+		select * from d_user where id = #{id}
+	</select>
+	
+	
+	
+</mapper>

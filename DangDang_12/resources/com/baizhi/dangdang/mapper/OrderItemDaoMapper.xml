@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dangdang.orderItem.dao.OrderItemDao">
+	<insert id="insertOrderItem" parameterType="java.util.List">
+		begin
+		<foreach collection="list" index="index" item="item" separator=";">
+			insert into d_orderitem(id,book_id,count,price,order_id) values(#{item.id},#{item.dbook.id},#{item.count},#{item.price},#{item.order.id})
+		</foreach>
+		;end;
+	</insert>
+	
+</mapper>

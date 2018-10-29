@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dangdang.category.dao.CategoryDao">
+	<resultMap type="Category" id="category1">
+		<id column="cid" property="id"/>
+		<result column="ccategoryname" property="categoryName"/>
+		<result column="parentid" property="parentId"/>
+		<collection property="list" ofType="Category">
+			<id column="gid" property="id"/>
+			<result column="gcategoryname" property="categoryName"/>
+			<result column="pid" property="parentId"/>
+		</collection>
+	</resultMap>
+	<select id="queryAll"  resultMap="category1">
+		select c.id as cid, c.category_name as ccategoryname, c.pid as parentid,
+		g.id as gid, g.category_name as gcategoryname,g.pid
+		from category c join category g
+		on c.id = g.pid order by g.id
+	</select>
+	
+	<resultMap type="Category" id="category2">
+		<id column="cid" property="id"/>
+		<result column="ccategoryname" property="categoryName"/>
+		<result column="parentid" property="parentId"/>
+		<collection property="list" ofType="Category">
+			<id column="gid" property="id"/>
+			<result column="gcategoryname" property="categoryName"/>
+			<result column="pid" property="parentId"/>
+		</collection>
+	</resultMap>
+	<select id="queryByCategoryId" resultMap="category2" parameterType="java.lang.String">
+		select c.id as cid, c.category_name as ccategoryname, c.pid as parentid,
+		g.id as gid, g.category_name as gcategoryname,g.pid
+		from category c join category g
+		on c.id = g.pid
+		where c.id=#{pid}
+	</select>
+	
+</mapper>

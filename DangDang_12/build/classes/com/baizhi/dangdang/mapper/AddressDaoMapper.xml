@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dangdang.address.dao.AddressDao">
+	<select id="queryAddressByDuserId" parameterType="java.lang.String" resultType="Address">
+		select id,recive_name as reciveName,
+		detail_address as detailAddress,
+		tel_number as telNumber,
+		phone_number as phoneNumber,
+		zipcode
+		from d_address where user_id = #{id}
+	</select>
+	<select id="queryAddressById" parameterType="java.lang.Integer" resultType="Address">
+		select id,recive_name as reciveName,
+		detail_address as detailAddress,
+		tel_number as telNumber,
+		phone_number as phoneNumber,
+		zipcode
+		from d_address where id = #{id}
+	</select>
+	
+	<select id="insert" parameterType="Address">
+		insert into d_address values(#{id},#{reciveName},#{detailAddress},#{telNumber,jdbcType=VARCHAR},#{phoneNumber,jdbcType=VARCHAR},#{duser.id},#{zipcode})
+	</select>
+	
+	<update id="update" parameterType="Address">
+		update d_address set recive_name = #{reciveName},
+		tel_number = #{telNumber,jdbcType=VARCHAR},
+		phone_number = #{phoneNumber,jdbcType=VARCHAR} where
+		id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+   <package name="user" extends="struts-default" namespace="/user">
+   		<action name="image" class="com.baizhi.dangdang.user.action.ImageAction"></action>
+   		<action name="findOneUserInfo" class="com.baizhi.dangdang.user.action.FindOneDuserAction"></action>
+   		<action name="checkcode" class="com.baizhi.dangdang.user.action.CheckCodeAction"></action>
+   		<action name="login" class="com.baizhi.dangdang.user.action.LoginAction">
+   			<result name="success" type="redirect">/main/main.jsp</result>
+   			<result name="error">/user/login_form.jsp</result>
+   			<result name="addressAction" type="redirect">/order/address_form.jsp</result>
+   		</action>
+   		<!-- <action name="loginAnsyn" class="com.baizhi.dangdang.user.action.LoginAnsynAction"></action> -->
+   		<action name="register" class="com.baizhi.dangdang.user.action.RegisterAction">
+   			<result name="success" type="redirect">/user/verify_form.jsp</result>
+   		</action>
+   		<action name="activeCode" class="com.baizhi.dangdang.user.action.ActiveCodeAction">
+   			<result name="success" type="redirect">/user/register_ok.jsp</result>
+   		</action>
+   		<action name="safeExit" class="com.baizhi.dangdang.user.action.SafeExitAction">
+   			<result name="success" type="redirect">/user/login_form.jsp</result>
+   		</action>
+   </package>
+   
+   <package name="address" extends="struts-default" namespace="/address">
+   		<action name="showAllByDuserId" class="com.baizhi.dangdang.address.action.ShowAllByDuserIdAction"></action>
+   		<action name="showOneById" class="com.baizhi.dangdang.address.action.ShowOneByIdAction">
+   			<result name="error" type="redirect">/user/login_form.jsp</result>
+   		</action>
+   		
+   </package>
+   
+   <package name="category" extends="struts-default" namespace="/category">
+   		<action name="showAll" class="com.baizhi.dangdang.category.action.ShowAllAction">
+   			<result name="success" type="dispatcher">/main/category.jsp</result>
+   		</action>
+   		<!-- <action name="categoryListAction" class="com.baizhi.dangdang.category.action.ShowAllSecondAction">
+   			<result name="success">/main/book_list.jsp</result>
+   		</action> -->
+   </package>
+   
+   <package name="product" extends="struts-default" namespace="/product">
+   		<action name="showProductByRecommend" class="com.baizhi.dangdang.product.action.ShowProductByRecommendAction">
+   			<result name="success">/main/recommend.jsp</result>
+   		</action>
+   		<action name="showProductBySalnum" class="com.baizhi.dangdang.product.action.ShowProductBySalnumAction">
+   			<result name="success">/main/hot.jsp</result>
+   		</action>
+   		<action name="showByCreateDate" class="com.baizhi.dangdang.product.action.ShowProductByCreateTimeAction">
+   			<result name="success">/main/new.jsp</result>
+   		</action>
+   		<action name="showByCreateDateAndSalnum" class="com.baizhi.dangdang.product.action.ShowProductByCreateTimeAndSalnumAction">
+   			<result name="success">/main/hotBoard.jsp</result>
+   		</action>
+   		<action name="showByCatId" class="com.baizhi.dangdang.product.action.ShowProductByCatIdAction">
+   			<result name="success">/main/book_list.jsp</result>
+   		</action>
+   		<action name="showById" class="com.baizhi.dangdang.product.action.ShowProductById">
+   			<result name="success">/main/book_detail.jsp</result>
+   		</action>
+   </package>
+   
+   <package name="cart" extends="struts-default" namespace="/cart">
+   		<action name="cartAdd" class="com.baizhi.dangdang.cart.action.CartAddAction">
+   			<result name="success" type="redirect">/cart/cart_list.jsp</result>
+   		</action>
+   		<action name="cartUpdate" class="com.baizhi.dangdang.cart.action.CartUpdateAction">
+   			<result name="success" type="redirect">/cart/cart_list.jsp</result>
+   		</action>
+   		<action name="cartRecov" class="com.baizhi.dangdang.cart.action.CartRecovAction">
+   			<result name="success" type="redirect">/cart/cart_list.jsp</result>
+   		</action>
+   </package>
+   
+   <package name="order" extends="struts-default" namespace="/order">
+   		<action name="orderAdd" class="com.baizhi.dangdang.order.action.OrderAddAction">
+   			<result name="success" type="redirect">/order/order_ok.jsp</result>
+   		</action>
+   		<action name="confirmOrder" class="com.baizhi.dangdang.order.action.ConfirmOrderAction">
+   			<result name="success" type="redirect">/order/address_form.jsp</result>
+   		</action>
+   </package>
+   
+   
+</struts>

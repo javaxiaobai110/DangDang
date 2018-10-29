@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dangdang.product.dao.ProductDao">
+	<select id="queryByRecommend" parameterType="java.lang.Integer" resultType="Dbook">
+		select * from (select * from d_book order by recommend desc) where rownum between 1 and 2	 
+	</select>
+	
+	<select id="queryProductBySalnum" resultType="Dbook">
+		select * from (select * from d_book order by salecount desc) where rownum between 1 and 8
+	</select>
+	
+	<select id="queryByCreateDate" resultType="Dbook">
+		select * from (select * from d_book order by createdate desc) where rownum between 1 and 8
+	</select>
+	
+	<select id="queryByCreateDateAndSalnum" resultType="Dbook">
+		select * from (select * from d_book order by createdate desc, salecount desc) where rownum between 1 and 8
+	</select>
+	
+	<resultMap type="Dbook" id="res1">
+		<id column="cid" property="id"/>
+		<result column="bookname" property="bookname"/>
+		<result column="ddprice" property="ddprice"/>
+		<result column="src" property="src"/>
+		<result column="printtime" property="printtime"/>
+		<result column="price" property="price"/>
+		<result column="ddprice" property="ddprice"/>
+		<association property="category" javaType="Category">
+			<id column="gid" property="id"/>
+			<result column="category_name" property="categoryName"/>
+			<result column="pid" property="parentId"/>
+		</association>
+	</resultMap>
+	<select id="queryByCatId" parameterType="java.lang.String" resultMap="res1">
+		select c.id as cid, c.bookname, c.ddprice,c.src,c.printtime,c.price,c.ddprice,
+		g.id as gid, g.category_name, g.pid
+		from d_book c left join category g 
+		on c.categoryid = g.id
+		 
+		<where>
+			<if test="sc!=null"> and g.pid = #{sc} </if>
+			<if test="ssc!=null"> and g.id = #{ssc}</if>
+		</where>
+	</select>
+	
+	
+	<select id="queryAllByCatId" parameterType="java.lang.String" resultMap="res1">
+		select c.id as cid, c.bookname, c.ddprice,c.src,
+		g.id as gid, g.category_name, g.pid
+		from d_book c left join category g 
+		on c.categoryid = g.id
+		 
+		<where>
+			<if test="sc!=null"> and g.pid = #{sc} </if>
+			<if test="ssc!=null"> and g.id = #{ssc}</if>
+		</where>
+	</select>
+	
+	<select id="queryById" parameterType="java.lang.String" resultType="Dbook">
+		select * from d_book where id = #{id}
+	</select>
+	
+</mapper>
